@@ -1,24 +1,23 @@
 import { useState, useEffect } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
 import SplashScreen from './components/layout/SplashScreen';
+// 1. Importamos el nuevo Sidebar
+import Sidebar from './components/layout/Sidebar';
 
 export default function App() {
   const [cargando, setCargando] = useState(true);
   const [procesoActual, setProcesoActual] = useState("Iniciando motor...");
 
   useEffect(() => {
-    // Esta es la función asíncrona real que cargará tus módulos
+    // Función asíncrona de carga (real/simulada)
     const inicializarSistema = async () => {
       try {
-        // Fase 1: Acá a futuro validaremos la licencia local
         setProcesoActual("Verificando integridad del sistema...");
         await new Promise(resolve => setTimeout(resolve, 800));
 
-        // Fase 2: Acá irá la conexión real a Supabase (await supabase...)
         setProcesoActual("Conectando a la base de datos central...");
         await new Promise(resolve => setTimeout(resolve, 1000));
 
-        // Fase 3: Acá cargaremos configuraciones del usuario
         setProcesoActual("Sincronizando historial de pólizas...");
         await new Promise(resolve => setTimeout(resolve, 700));
 
@@ -37,17 +36,26 @@ export default function App() {
     <div className="min-h-screen bg-slate-900 text-slate-100 font-sans overflow-hidden">
       <AnimatePresence>
         {cargando ? (
-          /* Le inyectamos el estado en tiempo real al Splash */
           <SplashScreen mensajeProceso={procesoActual} />
         ) : (
           <motion.div
-            key="dashboard"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
+            key="dashboard-layout"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
             transition={{ duration: 0.5, delay: 0.2 }}
-            className="flex flex-col h-screen p-8 items-center justify-center"
+            className="flex h-screen bg-slate-900"
           >
-            <h1 className="text-3xl text-slate-400 font-bold">Panel Principal Limpio</h1>
+            <Sidebar />
+            <main className="flex-1 flex flex-col overflow-y-auto bg-slate-900">
+              <div className="flex-1 flex flex-col items-center justify-center p-8 gap-4">
+                <h1 className="text-4xl text-slate-100 font-extrabold tracking-tighter">
+                  Tablero <span className="text-blue-500">Principal</span>
+                </h1>
+                <p className="text-slate-500 max-w-md text-center">
+                  La estructura de la aplicación ya está lista. A la izquierda tenés el menú funcional. Al navegar, este contenido central es el que cambiará dinámicamente.
+                </p>
+              </div>
+            </main>
           </motion.div>
         )}
       </AnimatePresence>
