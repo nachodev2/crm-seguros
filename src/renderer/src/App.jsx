@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
 import SplashScreen from './components/layout/SplashScreen';
-// 1. Importamos el nuevo Sidebar
+import Importador from './features/importador/Importador';
 import Sidebar from './components/layout/Sidebar';
 
 export default function App() {
@@ -46,16 +46,7 @@ export default function App() {
             className="flex h-screen bg-slate-900"
           >
             <Sidebar />
-            <main className="flex-1 flex flex-col overflow-y-auto bg-slate-900">
-              <div className="flex-1 flex flex-col items-center justify-center p-8 gap-4">
-                <h1 className="text-4xl text-slate-100 font-extrabold tracking-tighter">
-                  Tablero <span className="text-blue-500">Principal</span>
-                </h1>
-                <p className="text-slate-500 max-w-md text-center">
-                  La estructura de la aplicación ya está lista. A la izquierda tenés el menú funcional. Al navegar, este contenido central es el que cambiará dinámicamente.
-                </p>
-              </div>
-            </main>
+            <Importador />
           </motion.div>
         )}
       </AnimatePresence>
